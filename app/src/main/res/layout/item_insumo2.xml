@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp">
+
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:src="@drawable/cajaherra">
+
+            </ImageView>
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/imagen"
+                android:layout_toRightOf="@+id/imagen"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/insumo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/cooperhewitt_heavy"
+                    android:text="Herramienta"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cooperhewitt_heavy"
+                    android:text="Descripción de Herramienta"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever">
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Capacidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="13dp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:text="Cantidad"
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/linearlayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Capacidad"
+                android:layout_marginEnd="2dp"
+                android:layout_marginTop="6dp"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/menos"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:clickable="true"
+                    android:src="@drawable/ic_menos2">
+                </ImageButton>
+
+                <EditText
+                    android:id="@+id/cantidad"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/Capacidad"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/cooperhewitt_heavy"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="7"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/mas"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:backgroundTint="#00FFFFFF"
+                    android:clickable="true"
+                    android:src="@drawable/ic_mas2">
+
+                </ImageButton>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

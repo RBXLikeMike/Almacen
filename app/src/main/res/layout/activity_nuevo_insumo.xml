@@ -102,8 +102,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toTopOf="@+id/guideline32">
+        app:layout_constraintTop_toTopOf="@+id/guideline32"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -114,8 +116,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
                 android:layout_marginStart="27dp"
+                android:hint="Nombre"
                 app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@+id/guideline33"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -144,8 +146,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Descripcion"
                 android:layout_marginStart="27dp"
+                android:hint="Descripcion"
                 app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@+id/guideline34"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -174,8 +176,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Marca"
                 android:layout_marginStart="27dp"
+                android:hint="Marca"
                 app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@+id/guideline34"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -204,11 +206,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Cantidad"
-                app:endIconMode="clear_text"
                 android:layout_marginStart="27dp"
+                android:hint="Cantidad"
                 app:counterEnabled="true"
                 app:counterMaxLength="4"
+                app:endIconMode="clear_text"
                 app:helperTextTextColor="#FF0000"
                 app:layout_constraintBottom_toTopOf="@+id/guideline35"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
@@ -221,9 +223,9 @@
                     android:id="@+id/etExistencia"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="5"
                     android:fontFamily="@font/cooperhewitt_heavy"
-                    android:inputType="text|number">
+                    android:inputType="text|number"
+                    android:maxLength="5">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -238,12 +240,12 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Cantidad Minima"
                 android:layout_marginStart="27dp"
+                android:hint="Cantidad Minima"
                 app:counterEnabled="true"
                 app:counterMaxLength="4"
-                app:helperTextTextColor="#FF0000"
                 app:endIconMode="clear_text"
+                app:helperTextTextColor="#FF0000"
                 app:layout_constraintBottom_toTopOf="@+id/guideline31"
                 app:layout_constraintEnd_toStartOf="@+id/guideline29"
                 app:layout_constraintStart_toStartOf="@+id/guideline28"
@@ -255,13 +257,12 @@
                     android:id="@+id/etCantMin"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:maxLength="5"
                     android:fontFamily="@font/cooperhewitt_heavy"
-                    android:inputType="text|number">
+                    android:inputType="text|number"
+                    android:maxLength="5">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
         </LinearLayout>

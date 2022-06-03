@@ -1,6 +1,7 @@
 package com.example.almacen.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.almacen.R;
 import com.example.almacen.models.Insumo;
@@ -30,16 +35,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FaltantesFragment extends Fragment {
     final List<Insumo> listaInsumos = new ArrayList<>();
+    final List<Insumo> listaOriginal = new ArrayList<>();
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
+    private TextView tvAviso;
     View root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.purple_500));
+        }
     }
 
     @Override
@@ -47,7 +63,7 @@ public class FaltantesFragment extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_faltantes, container, false);
         recyclerView = root.findViewById(R.id.listRecyclerViewF);
-        registerForContextMenu(recyclerView);
+        tvAviso = root.findViewById(R.id.tvAviso);
 
         inicializarFirebase();
 
@@ -55,46 +71,46 @@ public class FaltantesFragment extends Fragment {
 
     }
 
-    //agregar el menu contextual
-    /*@Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = requireActivity().getMenuInflater();
-        inflater.inflate(R.menu.menu_modificar, menu);
-    }
-
-    //agregar funcionalidad al menu contextual
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return super.onContextItemSelected(item);
-    }*/
-
-    /*@Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
-        inflater.inflate(R.menu.menu_lista,menu);
-
-        MenuItem item = menu.findItem(R.id.buscar);
-
+        //inflater.inflate(R.menu.menu_buscar,menu);
+        MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView buscador = (SearchView) item.getActionView();
-        buscador.setOnQueryTextListener(oyente);
-        buscador.setQueryHint("Buscar");
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) { return false; }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                int longitud = s.length();
+                if(longitud == 0)
+                {
+                    listaInsumos.clear();
+                    listaInsumos.addAll(listaOriginal);
+                }else{
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        List<Insumo> collecion = listaOriginal.stream().filter
+                                (i->i.getNombre().toLowerCase().contains(s.toLowerCase())).
+                                collect(Collectors.toList());
+                        listaInsumos.clear();
+                        listaInsumos.addAll(collecion);
+                    }else {
+                        listaInsumos.clear();
+                        for (Insumo z: listaOriginal) {
+                            if (z.getNombre().toLowerCase().contains(s.toLowerCase())){
+                                listaInsumos.add(z);
+                            }
+                        }
+                    }
+                }
+                adapter();
+                return true;
+            }
+        });
 
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nuevoCanto:
-                nuevoCanto();
-                break;
-            case R.id.info:
-                alertaAcercaDe();
-                break;
-        }
-        return true;
-    }
-
-     */
 
     private void inicializarFirebase() {
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
@@ -106,20 +122,23 @@ public class FaltantesFragment extends Fragment {
                 listaInsumos.clear();
 
                 for (DataSnapshot objSnap : snapshot.getChildren()) {
-                    Insumo i = objSnap.getValue(Insumo.class);
+                    if(objSnap!=null) {
+                        Insumo i = objSnap.getValue(Insumo.class);
 
-                    if(i.getExistencia() < i.getCant_minima()) {
-                        listaInsumos.add(i);
+                        assert i != null;
+                        if (i.getExistencia() < i.getCant_minima()) {
+                            listaInsumos.add(i);
+                        }
 
-                        //adapter = new ArrayAdapter<>(Lista.this, android.R.layout.simple_list_item_1, listaCantos);
-
-                        listAdapter = new ListAdapter(listaInsumos, getActivity(), getActivity().getApplication());
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setAdapter(listAdapter);
+                        adapter();
                     }
-
                 }
+
+                if(listaInsumos.size() == 0) tvAviso.setVisibility(View.VISIBLE);
+                else tvAviso.setVisibility(View.INVISIBLE);
+
+                listaOriginal.clear();
+                listaOriginal.addAll(listaInsumos);
             }
 
             @Override
@@ -129,69 +148,10 @@ public class FaltantesFragment extends Fragment {
         });
     }
 
-    private void alertaAcercaDe(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Acerca de");
-        String mensaje = "\u00a9 Version 0.1";
-        builder.setMessage(mensaje);
-        builder.setCancelable(true);
-        builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
-        AlertDialog alerta = builder.create();
-        alerta.show();
+    public void adapter(){
+        listAdapter = new ListAdapter(listaInsumos, getActivity());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(listAdapter);
     }
-
-    private void nuevoCanto() {
-        /*Intent i = new Intent(Lista.this, Nuevo.class);
-        i.putExtra("getTipo", 0);
-        startActivity(i);
-        overridePendingTransition(R.anim.left_in,R.anim.left_out);
-        finish();*/
-    }
-
-    private void verCanto(Insumo insumo) {
-        Intent i = new Intent(getActivity(), GestionarFragment.class);
-        i.putExtra("getID", insumo.getId());
-        i.putExtra("getNombre", insumo.getNombre());
-        i.putExtra("getDescripcion", insumo.getDescripcion());
-        i.putExtra("getMarca", insumo.getMarca());
-        i.putExtra("getExistencia", insumo.getExistencia());
-        i.putExtra("getCantidadMin", insumo.getCant_minima());
-        i.putExtra("getImagen", insumo.getImagen());
-
-        startActivity(i);
-        //overridePendingTransition(R.anim.left_in,R.anim.left_out);
-        //finish();
-    }
-
-    private static List<Insumo> filter(List<Insumo> insumos, String query) {
-        final String lowerCaseQuery = query.toLowerCase();
-
-        final List<Insumo> filteredModelList = new ArrayList<>();
-
-        for (Insumo insumo : insumos) {
-            final String nombre = insumo.getNombre().toLowerCase();
-            final String id = insumo.getId();
-            if (nombre.contains(lowerCaseQuery) || id.equals(query)) {
-                filteredModelList.add(insumo);
-            }
-        }
-
-        return filteredModelList;
-    }
-
-    SearchView.OnQueryTextListener oyente = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String query) {
-            //adapter.getFilter().filter(newText);
-            final List<Insumo> filteredModelList = filter(listaInsumos, query);
-            listAdapter.setItems(filteredModelList);
-            return true;
-        }
-    };
-
 }

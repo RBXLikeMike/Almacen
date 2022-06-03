@@ -102,7 +102,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
-    <TextView
+    <!--TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/googlee" />
+        app:srcCompat="@drawable/googlee" /-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
@@ -212,9 +212,11 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCorreo"
             android:layout_width="287dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cooperhewitt_heavy"
+            android:text="admin@gmail.com"
             android:inputType="textWebEmailAddress">
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -249,8 +251,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPass"
             android:layout_width="287dp"
             android:layout_height="wrap_content"
+            android:text="Admin123."
             android:fontFamily="@font/cooperhewitt_heavy"
             android:inputType="textPassword">
 
@@ -274,22 +278,22 @@
         app:layout_constraintGuide_percent="0.45" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_recordar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/cooperhewitt_heavy"
         android:text="Recordar usuario"
+        style="@style/SCBSwitch"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline18"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        app:layout_constraintVertical_bias="0.0"/>
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/imageView4"
         android:layout_width="44dp"
         android:layout_height="29dp"
@@ -311,6 +315,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
         app:layout_constraintVertical_bias="0.613"
-        app:srcCompat="@drawable/ic_linea2" />
+        app:srcCompat="@drawable/ic_linea2" /-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

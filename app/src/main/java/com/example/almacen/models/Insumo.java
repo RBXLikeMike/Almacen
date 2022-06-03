@@ -1,5 +1,5 @@
 package com.example.almacen.models;
-//Clase para el insumo
+
 public class Insumo {
     private String id;
     private String nombre;

@@ -2,6 +2,7 @@ package com.example.almacen.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.almacen.tools.ListAdapter;
 import com.example.almacen.models.Insumo;
@@ -40,12 +45,21 @@ public class InsumosFragment extends Fragment {
     final List<Insumo> listaOriginal = new ArrayList<>();
     private RecyclerView rwInsumos;
     private ListAdapter listAdapter;
+    private TextView tvAviso;
     View root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.purple_500));
+        }
+
     }
 
     @Override
@@ -53,7 +67,7 @@ public class InsumosFragment extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_insumos, container, false);
         rwInsumos = root.findViewById(R.id.listRecyclerView);
-        registerForContextMenu(rwInsumos);
+        tvAviso = root.findViewById(R.id.tvAviso);
 
         inicializarFirebaseInsumo();
 
@@ -61,23 +75,9 @@ public class InsumosFragment extends Fragment {
 
     }
 
-    //agregar el menu contextual
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = requireActivity().getMenuInflater();
-        inflater.inflate(R.menu.menu_modificar, menu);
-    }
-
-    //agregar funcionalidad al menu contextual
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return super.onContextItemSelected(item);
-    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
-        inflater.inflate(R.menu.menu_buscar,menu);
+        //inflater.inflate(R.menu.menu_buscar,menu);
         MenuItem item = menu.findItem(R.id.app_bar_search);
         SearchView buscador = (SearchView) item.getActionView();
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -94,7 +94,7 @@ public class InsumosFragment extends Fragment {
                     listaInsumos.addAll(listaOriginal);
                 }else{
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        List<Insumo> collecion = listaInsumos.stream().filter
+                        List<Insumo> collecion = listaOriginal.stream().filter
                                 (i->i.getNombre().toLowerCase().contains(s.toLowerCase())).
                                 collect(Collectors.toList());
                         listaInsumos.clear();
@@ -125,16 +125,21 @@ public class InsumosFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listaInsumos.clear();
-                listaOriginal.clear();
 
                 for (DataSnapshot objSnap : snapshot.getChildren()) {
-                    Insumo i = objSnap.getValue(Insumo.class);
-                    listaInsumos.add(i);
-                    listaOriginal.add(i);
-                    //adapter = new ArrayAdapter<>(Lista.this, android.R.layout.simple_list_item_1, listaCantos);
-                    adapter();
+                    if(objSnap!=null) {
+                        Insumo i = objSnap.getValue(Insumo.class);
+                        listaInsumos.add(i);
+                    }
 
+                    adapter();
                 }
+
+                if(listaInsumos.size() == 0) tvAviso.setVisibility(View.VISIBLE);
+                else tvAviso.setVisibility(View.INVISIBLE);
+
+                listaOriginal.clear();
+                listaOriginal.addAll(listaInsumos);
             }
 
             @Override
@@ -145,75 +150,9 @@ public class InsumosFragment extends Fragment {
     }
 
     public void adapter(){
-
-        listAdapter = new ListAdapter(listaInsumos, getActivity(), getActivity().getApplication());
+        listAdapter = new ListAdapter(listaInsumos, getActivity());
         rwInsumos.setHasFixedSize(true);
         rwInsumos.setLayoutManager(new LinearLayoutManager(getActivity()));
         rwInsumos.setAdapter(listAdapter);
-
-   }
-
-    private void alertaAcercaDe(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Acerca de");
-        String mensaje = "\u00a9 Version 0.1";
-        builder.setMessage(mensaje);
-        builder.setCancelable(true);
-        builder.setPositiveButton("Aceptar", (dialog, which) -> dialog.dismiss());
-        AlertDialog alerta = builder.create();
-        alerta.show();
     }
-
-    private void nuevoCanto() {
-        Intent i = new Intent(getActivity(), NuevoInsumoActivity.class);
-        i.putExtra("getTipo", 0);
-        startActivity(i);
-    }
-
-    private void verCanto(Insumo insumo) {
-        Intent i = new Intent(getActivity(), GestionarFragment.class);
-        i.putExtra("getID", insumo.getId());
-        i.putExtra("getNombre", insumo.getNombre());
-        i.putExtra("getDescripcion", insumo.getDescripcion());
-        i.putExtra("getMarca", insumo.getMarca());
-        i.putExtra("getExistencia", insumo.getExistencia());
-        i.putExtra("getCantidadMin", insumo.getCant_minima());
-        i.putExtra("getImagen", insumo.getImagen());
-
-        startActivity(i);
-        //overridePendingTransition(R.anim.left_in,R.anim.left_out);
-        //finish();
-    }
-
-    private static List<Insumo> filter(List<Insumo> insumos, String query) {
-        final String lowerCaseQuery = query.toLowerCase();
-
-        final List<Insumo> filteredModelList = new ArrayList<>();
-
-        for (Insumo insumo : insumos) {
-            final String nombre = insumo.getNombre().toLowerCase();
-            final String id = insumo.getId();
-            if (nombre.contains(lowerCaseQuery) || id.equals(query)) {
-                filteredModelList.add(insumo);
-            }
-        }
-
-        return filteredModelList;
-    }
-
-    SearchView.OnQueryTextListener oyente = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String query) {
-            //adapter.getFilter().filter(newText);
-            final List<Insumo> filteredModelList = filter(listaInsumos, query);
-            listAdapter.setItems(filteredModelList);
-            return true;
-        }
-    };
-
 }

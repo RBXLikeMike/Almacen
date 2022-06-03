@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.example.almacen.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -53,24 +54,18 @@ public class MenuLateralActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu_lateral);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View header = navigationView.getHeaderView(0);
+        header.findViewById(R.id.header_title);
+        TextView tSub = header.findViewById(R.id.tSubtitulo);
+        tSub.setText(getIntent().getExtras().getString("Usuario"));
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista, menu);
+        getMenuInflater().inflate(R.menu.menu_buscar, menu);
         return true;
     }
-
-    @SuppressLint("NonConstantResourceId")
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }*/
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_principal, menu);
-        return true;
-    }*/
 
     @Override
     public boolean onSupportNavigateUp() {

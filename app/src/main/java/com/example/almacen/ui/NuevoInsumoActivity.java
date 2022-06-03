@@ -15,16 +15,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.almacen.R;
 import com.example.almacen.models.Insumo;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 import java.util.UUID;
@@ -50,6 +57,13 @@ public class NuevoInsumoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_insumo);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.purple_500));
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar_nuevo);
         setSupportActionBar(toolbar);
@@ -175,6 +189,11 @@ public class NuevoInsumoActivity extends AppCompatActivity {
         builder.setMessage("¿Desea eliminar el insumo?");
 
         builder.setPositiveButton("SI", (dialog, which) -> {
+            StorageReference folder = FirebaseStorage.getInstance().getReference();
+            StorageReference desertRef = folder.child("Images/IMG-" + insumo.getId());
+
+            desertRef.delete();
+
             dr.child(insumo.getId()).removeValue();
 
             Toast.makeText(this, "Insumo eliminado", Toast.LENGTH_SHORT).show();
@@ -201,7 +220,7 @@ public class NuevoInsumoActivity extends AppCompatActivity {
         etMarca.setText("");
         etExistencia.setText("");
         etCantMin.setText("");
-
+        imagen.setImageResource(R.drawable.cajaherra);
         nuevo();
     }
 
@@ -228,6 +247,10 @@ public class NuevoInsumoActivity extends AppCompatActivity {
         insumo.setCant_minima(datos.getInt("getCantidadMin"));
         insumo.setImagen(datos.getString("getImagen"));
 
+        if(!insumo.getImagen().isEmpty()) {
+            Picasso.get().load(insumo.getImagen()).into(imagen);
+        }
+
         mostrarDatos();
     }
 
@@ -253,14 +276,9 @@ public class NuevoInsumoActivity extends AppCompatActivity {
                 dr.child(insumo.getId()).setValue(insumo);
                 Toast.makeText(this, "Insumo modificado", Toast.LENGTH_SHORT).show();
                 onBackPressed();
+                overridePendingTransition(R.animator.from_l, R.animator.to_r);
                 break;
         }
-    }
-
-    public void modificarCantidad(int Cantidad) {
-
-        insumo.setExistencia(Cantidad);
-
     }
 
     @Override
@@ -341,4 +359,5 @@ public class NuevoInsumoActivity extends AppCompatActivity {
         super.onBackPressed();
         overridePendingTransition(R.animator.from_l, R.animator.to_r);
     }
+
 }

@@ -12,10 +12,10 @@
             android:id="@+id/nav_nuevo"
             android:icon="@android:drawable/ic_input_add"
             android:title="Nuevo Insumo" /-->
-        <item
+        <!--item
             android:id="@+id/nav_ajustes"
             android:icon="@android:drawable/ic_menu_preferences"
-            android:title="Ajustes" />
+            android:title="Ajustes" /-->
         <item
             android:id="@+id/nav_cerrar_sesion"
             android:icon="@android:drawable/ic_delete"
