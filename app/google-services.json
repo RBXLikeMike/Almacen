@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1018708508672",
+    "project_id": "stocker-manage-18e82",
+    "storage_bucket": "stocker-manage-18e82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018708508672:android:03b4f52fd4ed16e56018e5",
+        "android_client_info": {
+          "package_name": "com.example.almacen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018708508672-3b7cqr6hq6tvapknvl1ldqbajgl0sier.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.almacen",
+            "certificate_hash": "60548ccad2d79734c469da2d55803cf9cfe78385"
+          }
+        },
+        {
+          "client_id": "1018708508672-si7gilldidglepntrjki8k7kopaiu8g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB75oDsPPhBvmx_uFqR_-kGyAwlcVI5dpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018708508672-si7gilldidglepntrjki8k7kopaiu8g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_inicio">
+
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="com.example.almacen.ui.InicioFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_inicio"/>
+    <activity
+        android:id="@+id/nav_nuevo"
+        android:name="com.example.almacen.ui.NuevoInsumoActivity"
+        android:label="Nuevo Insumo"
+        tools:layout="@layout/activity_nuevo_insumo" />
+    <fragment
+        android:id="@+id/nav_ajustes"
+        android:name="com.example.almacen.ui.AjustesFragment"
+        android:label="Ajustes" />
+    <activity
+        android:id="@+id/nav_cerrar_sesion"
+        android:name="com.example.almacen.ui.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+
+</navigation>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.GestionarFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/side_nav_bar"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UselessLeaf">
+
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_height="25dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Nombre"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:inputType="text"
+                android:background="@drawable/borde_redondo"
+                android:textSize="20sp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                />
+
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_height="25dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Descripción"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <EditText
+                android:id="@+id/etDescripción"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:inputType="text"
+                android:background="@drawable/borde_redondo"
+                android:textSize="20sp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                />
+
+            <TextView
+                android:id="@+id/tvMarca"
+                android:layout_height="25dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Marca"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <EditText
+                android:id="@+id/etMarca"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:inputType="text"
+                android:background="@drawable/borde_redondo"
+                android:textSize="20sp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                />
+
+            <TextView
+                android:id="@+id/tvExistencia"
+                android:layout_height="25dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Existencia"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <EditText
+                android:id="@+id/etExistencia"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:inputType="number"
+                android:background="@drawable/borde_redondo"
+                android:textSize="20sp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                />
+
+            <TextView
+                android:id="@+id/tvCantMin"
+                android:layout_height="25dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Cantidad minima"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <EditText
+                android:id="@+id/etCantMin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:inputType="number"
+                android:background="@drawable/borde_redondo"
+                android:textSize="20sp"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                />
+
+            <TextView
+                android:id="@+id/tvImagen"
+                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Imagen"
+                android:fontFamily="@font/cooperhewitt_heavy"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@android:drawable/ic_delete" />
+
+                <ImageButton
+                    android:id="@+id/bImagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:alpha="0.5"
+                    android:fontFamily="@font/cooperhewitt_heavy"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:text="Seleccionar imagen"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bModificar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="25dp"
+                android:textSize="20sp"
+                android:text="Modificar"
+                android:background="@drawable/borde_redondo"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

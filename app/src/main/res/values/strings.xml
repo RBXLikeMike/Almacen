@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Stocker</string>
+    <string name="title_activity_menu_lateral">MenuLateralActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Stocker Manage</string>
+    <string name="nav_header_subtitle">La mejor app para tu almacén</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nuevo_insumo">Nuevo Insumo</string>
+    <string name="modificar_insumo">Modificar Insumo</string>
+    <string name="referencia_padre">Insumos</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Mi cuenta</string>
+    <string name="sync_header">Sincronizar</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Tu correo</string>
+    <string name="reply_title">Acción por defecto</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sincronizar cambios</string>
+    <string name="attachment_title">Descargar datos</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Todos los datos de tus libros sin internet</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="modificar">Modificar</string>
+    <string name="agregar">Agregar</string>
+</resources>

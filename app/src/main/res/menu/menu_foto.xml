@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/agregar_foto2"
+        android:title="Mas...">
+    <menu>
+    <item
+        android:id="@+id/agregar_foto"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="Agregar Foto" />
+    <item
+        android:id="@+id/tomar_foto"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Tomar Foto" />
+
+    </menu>
+    </item>
+
+</menu>
